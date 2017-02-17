@@ -6,11 +6,6 @@
 
 #include "java/lang/Thread.hpp"
 #include "java/lang/System.hpp"
-#include "java/lang/StringBuilder.hpp"
-#include "java/lang/Double.hpp"
-#include "java/lang/Class.hpp"
-#include "java/lang/SecurityException.hpp"
-
 
 /* Unit test main routine */
 int main(int, char**) {
