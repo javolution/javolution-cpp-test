@@ -6,6 +6,7 @@
 
 #include "java/lang/Thread.hpp"
 #include "java/lang/System.hpp"
+#include "java/lang/ThreadLocal.hpp"
 
 /* Unit test main routine */
 int main(int, char**) {
@@ -16,9 +17,10 @@ int main(int, char**) {
         MyThread(Value* value) : Object(value) {}
         class Value : public Thread::Value {
             void run() override {
-                System::out.println("Thread say Hello");
+              	Thread current = Thread::currentThread();
+                System::out.println(current.getName() + " say Hello");
                 Thread::sleep(1000);
-                System::out.println("Thread say Bye!");
+                System::out.println(current.getName() + " say Bye!");
             }
         };
     };
@@ -29,9 +31,10 @@ int main(int, char**) {
         MyRunnable(Value* value) : Object(value) {}
         class Value : public Object::Value, public virtual Runnable::Interface {
             void run() override {
-                System::out.println("Runnable say Hello");
-                Thread::sleep(500);
-                System::out.println("Runnable say Bye!");
+            	Thread current = Thread::currentThread();
+                System::out.println(current.getName() + " say Hello");
+                Thread::sleep(1000);
+                System::out.println(current.getName() + " say Bye!");
             }
         };
     };
@@ -43,6 +46,8 @@ int main(int, char**) {
 
     threadA.start();
     threadB.start();
-    System::out.println("Wait");
+	Thread main = Thread::currentThread();
+    System::out.println(main.getName() + " say Hello");
     Thread::sleep(2000);
+    System::out.println(main.getName() + " say Bye!");
 }
