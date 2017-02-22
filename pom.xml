@@ -80,8 +80,7 @@
                     <classifier>${native.classifier}</classifier>
                     <workingDirectory>${project.build.directory}/${native.classifier}</workingDirectory>
                     <compilerOutputDirectory>${project.build.directory}/${native.classifier}/objs</compilerOutputDirectory>
-                    <linkerOutputDirectory>${project.build.directory}/${native.classifier}</linkerOutputDirectory>
-                
+                    <linkerOutputDirectory>${project.build.directory}/${native.classifier}</linkerOutputDirectory>                
                     <compilerProvider>${native.compilerProvider}</compilerProvider>
                     <envFactoryName>${native.envFactoryName}</envFactoryName>
                     <compilerExecutable>${native.compilerExecutable}</compilerExecutable>
@@ -89,7 +88,6 @@
                     <compilerStartOptions>
                         <compilerStartOption>${native.compilerStartOption}</compilerStartOption>
                     </compilerStartOptions>
-                                        
                     <linkerProvider>${native.linkerProvider}</linkerProvider>
                     <linkerExecutable>${native.linkerExecutable}</linkerExecutable>
                     <linkerStartOptions>
@@ -127,9 +125,6 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <environmentVariables>
-                        <LD_LIBRARY_PATH>${project.build.directory}/${native.classifier}</LD_LIBRARY_PATH>
-                    </environmentVariables>
                     <executable>${project.build.directory}/${native.classifier}/${project.artifactId}.exe</executable>
                     <workingDirectory>${project.build.directory}/${native.classifier}</workingDirectory>
                 </configuration>
@@ -151,17 +146,15 @@
                 </os>
             </activation>
             <properties>
-                <native.classifier>win32</native.classifier>
-                
+                <native.classifier>win64</native.classifier>
                 <native.compilerProvider>msvc</native.compilerProvider>
-                <native.envFactoryName>org.javolution.maven.MSVC2015x86EnvFactory</native.envFactoryName>
+                <native.envFactoryName>org.javolution.maven.MSVC2015x64EnvFactory</native.envFactoryName>
                 <native.compilerExecutable />
-                <native.numberOfConcurrentCompilation>1</native.numberOfConcurrentCompilation>  <!-- Bug in Visual Studio 2015 for parallel compilations -->
+                <native.numberOfConcurrentCompilation>1</native.numberOfConcurrentCompilation> 
                 <native.compilerStartOption>/EHsc /TP /W4 /O2 /Zi /Fd${project.artifactId} /MT</native.compilerStartOption>
-
                 <native.linkerProvider>msvc</native.linkerProvider>
                 <native.linkerExecutable></native.linkerExecutable>
-                <native.linkerStartOptions>/DEBUG</native.linkerStartOptions>
+                <native.linkerStartOption>/DEBUG</native.linkerStartOption>
             </properties>
         </profile>
 
@@ -174,15 +167,13 @@
             </activation>
             <properties>
                 <native.classifier>linux</native.classifier>
-                
                 <native.compilerProvider>generic</native.compilerProvider>
                 <native.compilerExecutable>g++</native.compilerExecutable>
                 <native.numberOfConcurrentCompilation>16</native.numberOfConcurrentCompilation> 
                 <native.compilerStartOption>-Wall -O2 -g -fPIC -std=c++11</native.compilerStartOption>
-
                 <native.linkerProvider>generic</native.linkerProvider>
                 <native.linkerExecutable>g++</native.linkerExecutable>
-                <native.linkerStartOptions>-pthread -rdynamic</native.linkerStartOptions>
+                <native.linkerStartOption>-pthread -rdynamic</native.linkerStartOption>
             </properties>
         </profile>
     </profiles>

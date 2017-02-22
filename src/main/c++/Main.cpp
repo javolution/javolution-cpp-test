@@ -6,6 +6,7 @@
 
 #include "java/lang/Thread.hpp"
 #include "java/lang/System.hpp"
+#include "java/lang/StringBuilder.hpp"
 
 /* Unit test main routine */
 int main(int, char**) {
