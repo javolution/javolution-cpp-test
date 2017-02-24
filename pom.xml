@@ -90,9 +90,9 @@
                     </compilerStartOptions>
                     <linkerProvider>${native.linkerProvider}</linkerProvider>
                     <linkerExecutable>${native.linkerExecutable}</linkerExecutable>
-                    <linkerStartOptions>
-                        <linkerStartOption>${native.linkerStartOption}</linkerStartOption>
-                    </linkerStartOptions>
+                    <linkerEndOptions>
+                        <linkerEndOption>${native.linkerEndOption}</linkerEndOption>
+                    </linkerEndOptions>
                     
                     <!-- ========================= -->
                     <!-- Project Specific Settings -->
@@ -154,7 +154,7 @@
                 <native.compilerStartOption>/EHsc /TP /W4 /O2 /Zi /Fd${project.artifactId} /MT</native.compilerStartOption>
                 <native.linkerProvider>msvc</native.linkerProvider>
                 <native.linkerExecutable></native.linkerExecutable>
-                <native.linkerStartOption>/DEBUG</native.linkerStartOption>
+                <native.linkerEndOption>/DEBUG</native.linkerEndOption>
             </properties>
         </profile>
 
@@ -170,10 +170,10 @@
                 <native.compilerProvider>generic</native.compilerProvider>
                 <native.compilerExecutable>g++</native.compilerExecutable>
                 <native.numberOfConcurrentCompilation>16</native.numberOfConcurrentCompilation> 
-                <native.compilerStartOption>-Wall -O2 -g -fPIC -std=c++11</native.compilerStartOption>
+                <native.compilerStartOption>-Wall -O2 -g -std=c++11</native.compilerStartOption>
                 <native.linkerProvider>generic</native.linkerProvider>
                 <native.linkerExecutable>g++</native.linkerExecutable>
-                <native.linkerStartOption>-pthread -rdynamic</native.linkerStartOption>
+                <native.linkerEndOption>-ldl</native.linkerEndOption>
             </properties>
         </profile>
     </profiles>

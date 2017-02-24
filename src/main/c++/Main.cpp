@@ -8,7 +8,7 @@
 #include "java/lang/System.hpp"
 #include "java/lang/StringBuilder.hpp"
 
-/* Unit test main routine */
+/** Unit test main routine (with MSVC make sure that your project is of type Console Application). */
 int main(int, char**) {
 
     // By extending Thread class
@@ -42,7 +42,7 @@ int main(int, char**) {
 
     MyThread threadA = new MyThread::Value();
     MyRunnable myRunnable = new MyRunnable::Value();
-    Thread threadB = Thread::newInstance(myRunnable);
+    Thread threadB = new Thread::Value(myRunnable);
 
     threadA.start();
     threadB.start();
