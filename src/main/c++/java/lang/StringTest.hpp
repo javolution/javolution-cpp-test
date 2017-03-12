@@ -20,16 +20,17 @@ public:
 
         void testValueOf_wchar() {
             Type::wchar c = L'\x00A9'; // Copyright character '©'
-            assertEquals("\x00A9", String::valueOf(c));
+            assertEquals(L"\x00A2", String::valueOf(c));
         }
 
     };
 
-    CTOR(StringTest, Value)
+    CTOR (StringTest, Value)
+    TEST (testValueOf_wchar)
 
     static TestSuite suite() {
         TestSuite tests = new TestSuite::Value("StringTest");
-        ADD_TEST(testValueOf_wchar, tests);
+        tests.addTest(new testValueOf_wchar());
         return tests;
     }
 };

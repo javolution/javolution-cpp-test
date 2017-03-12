@@ -12,6 +12,7 @@
 
 /** Unit test main routine (with MSVC make sure that your project is of type Console Application). */
 int main(int, char**) {
+
     TestResult result = new TestResult::Value();
     java::lang::StringTest::suite().run(result);
     result.printSummary();
@@ -24,7 +25,7 @@ int main(int, char**) {
             void run() override {
               	Thread current = Thread::currentThread();
                 System::out.println(current.getName() + " say Hello");
-                Thread::sleep(-1000);
+                Thread::sleep(1000);
                 System::out.println(current.getName() + " say Bye!");
             }
         };
@@ -55,4 +56,6 @@ int main(int, char**) {
     System::out.println(main.getName() + " say Hello");
     Thread::sleep(2000);
     System::out.println(main.getName() + " say Bye!");
+
+    return 0;
 }

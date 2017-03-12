@@ -95,7 +95,9 @@
 									/Fd${project.artifactId} /MT</compilerStartOption>
 							</compilerStartOptions>
 							<linkerProvider>msvc</linkerProvider>
-                            <linkerEndOption>/DEBUG</linkerEndOption>
+							<linkerEndOptions>
+								<linkerEndOption>/DEBUG</linkerEndOption>
+							</linkerEndOptions>
 							<sources>
 								<source>
 									<directory>${project.basedir}/src/main/c++</directory>
