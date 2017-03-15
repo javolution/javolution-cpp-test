@@ -146,8 +146,13 @@
 							</compilerStartOptions>
 							<linkerProvider>generic</linkerProvider>
 							<linkerExecutable>g++</linkerExecutable>
-							<linkerEndOption>-ldl</linkerEndOption>
-							<sources>
+							<linkerStartOptions>
+                                <linkerStartOption>-pthread -rdynamic</linkerStartOption> <!-- -rdynamic for backtrace -->
+                            </linkerStartOptions>
+                            <linkerEndOptions>
+                                <linkerEndOption>-ldl</linkerEndOption> 
+                            </linkerEndOptions>
+                        	<sources>
 								<source>
 									<directory>${project.basedir}/src/main/c++</directory>
 									<includes>
