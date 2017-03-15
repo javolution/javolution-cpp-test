@@ -4,58 +4,60 @@
  * All rights reserved.
  */
 
-#include "java/lang/Thread.hpp"
-#include "java/lang/System.hpp"
-#include "java/lang/StringBuilder.hpp"
 #include "junit/framework/TestResult.hpp"
+#include "junit/framework/TestListener.hpp"
+#include "java/lang/System.hpp"
+#include "java/lang/ObjectTest.hpp"
 #include "java/lang/StringTest.hpp"
+#include "java/lang/ThreadTest.hpp"
+using namespace junit::framework;
 
 /** Unit test main routine (with MSVC make sure that your project is of type Console Application). */
 int main(int, char**) {
 
+    // Displays test results as they go.
+    class TestProgress: public virtual TestListener {
+    public:
+        class Value: public Object::Value, public virtual TestListener::Interface {
+            void addError(const Test&, const Throwable& e) override {
+                System::out.println(String::valueOf("  --  Unexpected Error -- ") + e);
+                System::out.println(e.getStackTrace());
+            }
+            void addFailure(const Test&, const AssertionFailedError& e) override {
+                System::out.println(String::valueOf("   --  Assertion Failed -- ") + e);
+            }
+            void endTest(const Test&) override {
+            }
+            void startTest(const Test& test) override {
+                TestCase testCase = test.cast_<TestCase::Value>();
+                System::out.println(testCase.getName());
+            }
+        };
+
+        CTOR(TestProgress, Value)
+    };
+
     TestResult result = new TestResult::Value();
-    java::lang::StringTest::suite().run(result);
-    result.printSummary();
+    result.addListener(new TestProgress::Value());
 
-    // By extending Thread class
-    class MyThread : public virtual Thread {
-    public:
-        MyThread(Value* value) : Object(value) {}
-        class Value : public Thread::Value {
-            void run() override {
-              	Thread current = Thread::currentThread();
-                System::out.println(current.getName() + " say Hello");
-                Thread::sleep(1000);
-                System::out.println(current.getName() + " say Bye!");
-            }
-        };
-    };
+    ////////////////////////////////////////////////////
+    // Tests to run (TestSuite).
+    TestSuite tests = new TestSuite::Value();
+    tests.addTest(java::lang::ObjectTest::suite());
+    tests.addTest(java::lang::StringTest::suite());
+    tests.addTest(java::lang::ThreadTest::suite());
+    ////////////////////////////////////////////////////
 
-    // By implementing Runnable interface.
-    class MyRunnable : public virtual Runnable {
-    public:
-        MyRunnable(Value* value) : Object(value) {}
-        class Value : public Object::Value, public virtual Runnable::Interface {
-            void run() override {
-            	Thread current = Thread::currentThread();
-                System::out.println(current.getName() + " say Hello");
-                Thread::sleep(1000);
-                System::out.println(current.getName() + " say Bye!");
-            }
-        };
-    };
-
-
-    MyThread threadA = new MyThread::Value();
-    MyRunnable myRunnable = new MyRunnable::Value();
-    Thread threadB = new Thread::Value(myRunnable);
-
-    threadA.start();
-    threadB.start();
-	Thread main = Thread::currentThread();
-    System::out.println(main.getName() + " say Hello");
-    Thread::sleep(2000);
-    System::out.println(main.getName() + " say Bye!");
-
-    return 0;
+    System::out.println(" -- JAVOLUTION C++ TESTING --");
+    tests.run(result);
+    System::out.println(String::valueOf("Number of test cases run: ") + result.runCount());
+    System::out.println(String::valueOf("Number of error(s) : ") + result.errorCount());
+    System::out.println(String::valueOf("Number of failure(s) : ") + result.failureCount());
+    if (result.wasSuccessful()) {
+        System::out.println("SUCCESS !");
+        return 0;
+    } else {
+        System::out.println("FAILURE !");
+        return -1;
+    }
 }

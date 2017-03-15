@@ -7,7 +7,6 @@
 
 #include "junit/framework/TestCase.hpp"
 #include "junit/framework/TestSuite.hpp"
-
 using namespace junit::framework;
 
 namespace java {
@@ -18,19 +17,19 @@ public:
     class Value: public TestCase::Value {
     public:
 
-        void testValueOf_wchar() {
-            Type::wchar c = L'\x00A9'; // Copyright character '©'
-            assertEquals(L"\x00A2", String::valueOf(c));
+        void testValueOf_uchar() {
+            Type::uchar c = u'\x00A9'; // Copyright character '©'
+            assertEquals(String::valueOf(u"©"), String::valueOf(c));
         }
 
     };
 
     CTOR (StringTest, Value)
-    TEST (testValueOf_wchar)
+    TEST (testValueOf_uchar)
 
     static TestSuite suite() {
-        TestSuite tests = new TestSuite::Value("StringTest");
-        tests.addTest(new testValueOf_wchar());
+        TestSuite tests = new TestSuite::Value();
+        tests.addTest(new testValueOf_uchar());
         return tests;
     }
 };
