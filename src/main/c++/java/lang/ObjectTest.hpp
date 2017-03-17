@@ -8,6 +8,7 @@
 #include "junit/framework/TestCase.hpp"
 #include "junit/framework/TestSuite.hpp"
 #include "java/lang/System.hpp"
+#include "java/lang/Integer.hpp"
 
 using namespace junit::framework;
 
@@ -52,15 +53,31 @@ public:
 			System::out.println(String::valueOf("System Heap Allocations: ") +
 					Type::FastHeap::INSTANCE.getSystemHeapCount());
 		}
+
+		void testStack() {
+            static Integer vector[USAGE]; // Integer is a Value-Type.
+            Type::int64 start = System::currentTimeMillis();
+            for (int i = 0; i < COUNT; i++) {
+                vector[i % USAGE] = Integer::valueOf(i);
+            }
+            Type::int64 end = System::currentTimeMillis();
+            System::out.println(
+                    String::valueOf("Number of objects allocated and destroyed per second: ")
+                            + (COUNT * 1000.0 / (end - start)));
+        }
+
 	};
 
 	CTOR (ObjectTest, Value)
-	TEST (testStandardHeap)TEST (testFastHeap)
+	TEST (testStandardHeap)
+	TEST (testFastHeap)
+    TEST (testStack)
 
 	static TestSuite suite() {
 		TestSuite tests = new TestSuite::Value();
 		tests.addTest(new testStandardHeap());
 		tests.addTest(new testFastHeap());
+        tests.addTest(new testStack());
 		return tests;
 	}
 };

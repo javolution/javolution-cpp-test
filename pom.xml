@@ -37,6 +37,20 @@
 		</license>
 	</licenses>
 
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>com.soebes.maven.plugins</groupId>
+                <artifactId>doxygen-maven-plugin</artifactId>
+                <version>1.1.0</version>
+                <configuration>
+                   <input>${project.basedir}/src/main/c++</input>
+                  <recursive>true</recursive>
+                 </configuration>               
+            </plugin>
+        </plugins>
+    </reporting>
+
 	<!-- ================================================ -->
 	<!-- Executable Dependencies (Javolution C++ Library) -->
 	<!-- ================================================ -->
@@ -146,11 +160,8 @@
 							</compilerStartOptions>
 							<linkerProvider>generic</linkerProvider>
 							<linkerExecutable>g++</linkerExecutable>
-							<linkerStartOptions>
-                                <linkerStartOption>-pthread -rdynamic</linkerStartOption> <!-- -rdynamic for backtrace -->
-                            </linkerStartOptions>
                             <linkerEndOptions>
-                                <linkerEndOption>-ldl</linkerEndOption> 
+                                <linkerEndOption>-lpthread -ldl</linkerEndOption> 
                             </linkerEndOptions>
                         	<sources>
 								<source>
