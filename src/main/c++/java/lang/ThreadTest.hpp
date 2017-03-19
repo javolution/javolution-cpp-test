@@ -23,14 +23,14 @@ public:
 
         void testExtendingThread() {
             extendingThreadSuccess = false;
-            class MyThread : public virtual Thread {
+            class MyThread : public Thread {
             public:
-                MyThread(Value* value) : Object(value) {}
                 class Value : public Thread::Value {
                     void run() override {
                         extendingThreadSuccess = true;
                     }
                 };
+                CLASS_BASE(MyThread, Thread)
             };
             MyThread thread = new MyThread::Value();
             thread.start();
@@ -40,14 +40,14 @@ public:
 
         void testRunnableThread() {
             runnableSuccess = false;
-            class MyRunnable : public virtual Runnable {
+            class MyRunnable : public Runnable {
             public:
-                MyRunnable(Value* value) : Object(value) {}
-                class Value : public Object::Value, public virtual Runnable::Interface {
+                class Value : public Object::Value, public Runnable::Interface {
                     void run() override {
                         runnableSuccess = true;
                     }
                 };
+                CLASS_BASE(MyRunnable, Runnable)
             };
             MyRunnable myRunnable = new MyRunnable::Value();
             Thread thread = new Thread::Value(myRunnable);
@@ -57,9 +57,9 @@ public:
         }
     };
 
-    CTOR (ThreadTest, Value)
-    TEST (testExtendingThread)
-    TEST (testRunnableThread)
+    CLASS_BASE(ThreadTest, TestCase)
+    TEST(testExtendingThread)
+    TEST(testRunnableThread)
 
     static TestSuite suite() {
         TestSuite tests = new TestSuite::Value();

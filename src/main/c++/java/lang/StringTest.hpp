@@ -24,7 +24,7 @@ public:
 
     };
 
-    CTOR (StringTest, Value)
+    CLASS_BASE (StringTest, TestCase)
     TEST (testValueOf_uchar)
 
     static TestSuite suite() {

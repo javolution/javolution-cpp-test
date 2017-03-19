@@ -16,15 +16,15 @@ using namespace junit::framework;
 int main(int, char**) {
 
     // Displays test results as they go.
-    class TestProgress: public virtual TestListener {
+    class TestProgress: public TestListener {
     public:
         class Value: public Object::Value, public virtual TestListener::Interface {
             void addError(const Test&, const Throwable& e) override {
-                System::out.println(String::valueOf("  --  Unexpected Error -- ") + e);
+                System::out.println("  --  Unexpected Error -- " + e.toString());
                 System::out.println(e.getStackTrace());
             }
             void addFailure(const Test&, const AssertionFailedError& e) override {
-                System::out.println(String::valueOf("   --  Assertion Failed -- ") + e);
+                System::out.println("   --  Assertion Failed -- " + e.toString());
             }
             void endTest(const Test&) override {
             }
@@ -33,8 +33,9 @@ int main(int, char**) {
                 System::out.println(testCase.getName());
             }
         };
-
-        CTOR(TestProgress, Value)
+        TestProgress(Void = nullptr) {}
+        TestProgress(Value* value) : TestListener(value)  {}
+        //CTOR(TestProgress, Value)
     };
 
     TestResult result = new TestResult::Value();
@@ -50,9 +51,9 @@ int main(int, char**) {
 
     System::out.println(" -- JAVOLUTION C++ TESTING --");
     tests.run(result);
-    System::out.println(String::valueOf("Number of test cases run: ") + result.runCount());
-    System::out.println(String::valueOf("Number of error(s) : ") + result.errorCount());
-    System::out.println(String::valueOf("Number of failure(s) : ") + result.failureCount());
+    System::out.println("Number of test cases run: " + String::valueOf(result.runCount()));
+    System::out.println("Number of error(s) : " + String::valueOf(result.errorCount()));
+    System::out.println("Number of failure(s) : " + String::valueOf(result.failureCount()));
     if (result.wasSuccessful()) {
         System::out.println("SUCCESS !");
         return 0;
