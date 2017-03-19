@@ -18,7 +18,7 @@ int main(int, char**) {
     // Displays test results as they go.
     class TestProgress: public TestListener {
     public:
-        class Value: public Object::Value, public virtual TestListener::Interface {
+        class Value: public Object::Value, public TestListener::Interface {
             void addError(const Test&, const Throwable& e) override {
                 System::out.println("  --  Unexpected Error -- " + e.toString());
                 System::out.println(e.getStackTrace());
@@ -33,9 +33,7 @@ int main(int, char**) {
                 System::out.println(testCase.getName());
             }
         };
-        TestProgress(Void = nullptr) {}
-        TestProgress(Value* value) : TestListener(value)  {}
-        //CTOR(TestProgress, Value)
+        CLASS_BASE(TestProgress, TestListener)
     };
 
     TestResult result = new TestResult::Value();
