@@ -35,7 +35,7 @@ all objects even Boolean, Integer or Double are heap allocated).
 In other words, a generic math library (e.g. JScience) ported to Javolution C++ should run as fast as if primitive types
 where being used (e.g. Matrix<Complex>), a feat not possible with current Java yet!
 
-```cpp
+```
   -- JAVOLUTION C++ TESTING --
 java::lang::ObjectTest::testStandardHeap
 Number of objects allocated and destroyed per second: 1.36426e+07
