@@ -6,7 +6,7 @@ On top of running unit tests (JUnit like), the executable also perform benchmark
 
 # Building
 
-## On POSIX systems (with GCC 4.8+)
+## On POSIX systems (GCC 4.8+)
 
 1.  Install [Apache Maven](http://maven.apache.org/) on your system.
 2.  Get a copy of [Javolution C++](https://github.com/javolution/javolution-cpp) and 
@@ -17,13 +17,13 @@ On top of running unit tests (JUnit like), the executable also perform benchmark
 
 ## On Windows (MSVC 2015+)
 
-1.  Download and install Visual C++ from [Visual Studio Community](https://www.visualstudio.com/vs/community/) (free).
+1.  Download and install Visual C++ 2017 from [Visual Studio Community](https://www.visualstudio.com/vs/community/) (free).
 2.  Install [Apache Maven](http://maven.apache.org/) on your system.
 3.  Get a copy of [Javolution](https://github.com/javolution/javolution), 
     [Javolution C++](https://github.com/javolution/javolution-cpp) and 
     [Javolution C++ Test](https://github.com/javolution/javolution-cpp-test) source code, either by cloning their 
     repository, or by downloading an archive.
-4.  Run `maven install` at the root of the javolution directory (to support MSVC native plugin).
+4.  Run `maven install` at the root of the javolution directory (provides support for MSVC 2015/2017).
 5.  Run `maven install` at the root of the javolution-cpp directory.
 6.  Run `maven install` at the root of the javolution-cpp-test directory, that last install will execute the tests.
 
