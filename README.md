@@ -33,7 +33,7 @@ Here is an example of an execution output. It shows that Javolution C++ stack al
 (small immutable objects such as numbers) are significantly faster (30x) than heap allocated objects (in standard Java
 all objects even Boolean, Integer or Double are heap allocated). 
 In other words, a generic math library (e.g. JScience) ported to Javolution C++ should run as fast as if primitive types
-where being used (e.g. Matrix<Complex>), a feat not possible with current Java yet!
+where being used (e.g. Matrix&lt;Complex&gt;), a feat not possible with current Java yet!
 
 ```
   -- JAVOLUTION C++ TESTING --
