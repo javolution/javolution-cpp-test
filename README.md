@@ -1,4 +1,4 @@
-# Introduction
+# Javolution C++ Test
 
 [Javolution C++ Test](https://github.com/javolution/javolution-cpp) is a "Case-Study" on how to build native executables
  (Windows or Linux) based on [Javolution C++](https://github.com/javolution/javolution-cpp) and [Maven](http://maven.apache.org/).
